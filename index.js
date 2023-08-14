@@ -11,8 +11,6 @@ const renderMessage = (data) => {
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
-bot.use(session());
-
 bot.start((ctx) => ctx.reply('Con este bot puedes hacer un seguimiento de tu caso de USCIS. Envía el comando /ch seguido de tu número de recibo. Solo es una alternativa a la página web oficial de USCIS. Espero te sea útil❤'))
 
 bot.action("check_again", async (ctx)=>{
