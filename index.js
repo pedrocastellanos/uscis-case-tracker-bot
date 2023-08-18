@@ -2,6 +2,7 @@ const { Telegraf, Markup } = require('telegraf')
 const makeRequest = require('./fetch.js')
 require('dotenv').config()
 let sessionReceiptNumber = ""
+const crypto = require("crypto")
 
 const renderMessage = (data) => {
 	const {CaseStatusResponse} = data
@@ -45,7 +46,20 @@ bot.command('ayuda', (ctx) => {
 	ctx.reply("Para conocer el estado de su caso solo debe enviar el comando /ch seguido por el recibo de su caso. Ejemplo /ch IOE123456789")
 })
 
-bot.launch()
+//----Dev----
+//bot.launch()
+
+//----Production----
+bot.launch({
+  webhook: {
+    // Public domain for webhook; e.g.: example.com
+    domain: process.env.DOMAIN,
+
+    // Port to listen on; e.g.: 8080
+    port: process.env.PORT,
+	secretToken: crypto.randomBytes(64).toString("hex"),
+  },
+});
 
 
 
